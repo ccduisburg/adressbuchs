@@ -21,10 +21,10 @@ public class Person implements Serializable {
     private String name;
     private String vorname;
     private String email;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Adresse adresse;
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    private String adresse;
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date geburstdatum;
 
@@ -92,11 +92,20 @@ public class Person implements Serializable {
         this.email = email;
     }
 
-    public Adresse getAdresse() {
+//    public Adresse getAdresse() {
+//        return adresse;
+//    }
+//
+//    public void setAdresse(Adresse adresse) {
+//        this.adresse = adresse;
+//    }
+
+
+    public String getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(Adresse adresse) {
+    public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
 

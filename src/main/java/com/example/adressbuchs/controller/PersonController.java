@@ -18,14 +18,11 @@ import java.util.List;
 @EnableAutoConfiguration
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 @RequestMapping(value = "/person")
 public class PersonController {
 
     @Autowired
     private PersonService personService;
-
-
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<Person> add(@Validated @RequestBody Person person){

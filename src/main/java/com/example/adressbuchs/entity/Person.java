@@ -17,7 +17,8 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String titel;
-    private String geschlecht;
+    @Enumerated(EnumType.STRING)
+    private Geschlecht geschlecht;
     private String name;
     private String vorname;
     private String email;
@@ -60,11 +61,11 @@ public class Person implements Serializable {
         this.titel = titel;
     }
 
-    public String getGeschlecht() {
+    public Geschlecht getGeschlecht() {
         return geschlecht;
     }
 
-    public void setGeschlecht(String geschlecht) {
+    public void setGeschlecht(Geschlecht geschlecht) {
         this.geschlecht = geschlecht;
     }
 

@@ -112,28 +112,28 @@ class PersonControllerIntegrationTests {
 
     }
 
-    @Test
-    void testGetPersonById()
-    {
-        Person person = new Person();
-        person.setId(9L);
-        person.setName("Test");
-        person.setVorname("TestVorname");
-
-        Mockito
-                .when(personService.findById(9L))
-                .thenReturn(person);
-
-        webClient.get().uri("http://localhost:8082/person/{id}", 9)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody()
-                .jsonPath("$.name").isNotEmpty()
-                .jsonPath("$.id").isEqualTo(9)
-                .jsonPath("$.name").isEqualTo("Test")
-                .jsonPath("$.vorname").isEqualTo("TestVorname");
-
-        Mockito.verify(personService, times(1)).findById(9L);
-    }
+//    @Test
+//    void testGetPersonById()
+//    {
+//        Person person = new Person();
+//        person.setId(9L);
+//        person.setName("Test");
+//        person.setVorname("TestVorname");
+//
+//        Mockito
+//                .when(personService.findById(9L))
+//                .thenReturn(person);
+//
+//        webClient.get().uri("http://localhost:8082/person/{id}", 9)
+//                .exchange()
+//                .expectStatus().isOk()
+//                .expectBody()
+//                .jsonPath("$.name").isNotEmpty()
+//                .jsonPath("$.id").isEqualTo(9)
+//                .jsonPath("$.name").isEqualTo("Test")
+//                .jsonPath("$.vorname").isEqualTo("TestVorname");
+//
+//        Mockito.verify(personService, times(1)).findById(9L);
+//    }
 
 }

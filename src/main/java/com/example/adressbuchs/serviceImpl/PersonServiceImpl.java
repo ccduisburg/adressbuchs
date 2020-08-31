@@ -39,7 +39,7 @@ public class PersonServiceImpl implements PersonService {
     public Feedback update(Long id, Person person) {
         Optional<Person> updatePerson= Optional.ofNullable(Optional.ofNullable(findById(id)).orElseThrow(NoSuchElementException::new));
         updatePerson.get().setName(person.getName());
-        updatePerson.get().setAdresse(person.getAdresse());
+        updatePerson.get().setAnschrift(person.getAnschrift());
         updatePerson.get().setEmail(person.getEmail());
         updatePerson.get().setGeschlecht(person.getGeschlecht());
         updatePerson.get().setTitel(person.getTitel());
@@ -80,6 +80,12 @@ public class PersonServiceImpl implements PersonService {
     public List<Person> findByEmail(String email) {
         List<Person> personen =personRepository.findAllByEmailIgnoreCaseContaining(email);
         return personen!=null?personen: Collections.EMPTY_LIST;
+    }
+    @Override
+    public List<Person> getPersonBy(Optional<String> name,Optional<String> email){
+        if(name.isPresent()){return personRepository.findAllByNameIgnoreCaseContaining(name.get());}
+        if(name.isPresent()){return personRepository.findAllByEmailIgnoreCaseContaining(email.get());}
+        return personRepository.findAll();
     }
 
 }

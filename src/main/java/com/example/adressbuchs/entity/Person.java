@@ -1,9 +1,7 @@
 package com.example.adressbuchs.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import com.sun.istack.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -22,8 +20,9 @@ public class Person implements Serializable {
     private String name;
     private String vorname;
     private String email;
-    private String adresse;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private String anschrift;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date geburstdatum;
 
     public Person( String vorname, String name, String email) {
@@ -98,11 +97,11 @@ public class Person implements Serializable {
         this.geburstdatum = geburstdatum;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getAnschrift() {
+        return anschrift;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAnschrift(String adresse) {
+        this.anschrift = adresse;
     }
 }

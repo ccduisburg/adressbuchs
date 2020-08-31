@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @EnableAutoConfiguration
 @RestController
@@ -31,7 +32,6 @@ public class PersonController {
     }
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Person> update(@Validated @RequestBody Person person,@RequestParam Long id){
-
         Feedback result= personService.update(id,person);
         return result.equals(Feedback.DONE)?new ResponseEntity<Person>(HttpStatus.OK):new ResponseEntity<Person>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -52,17 +52,22 @@ public class PersonController {
     }
     @RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
     public ResponseEntity<Collection<Person>> findByEmail(@Validated @PathVariable String email){
-        List<Person> result= personService.findByEmail(email);
+        List<Person> result= personService.findByEmail(email);;
         return new ResponseEntity<Collection<Person>>(result, HttpStatus.OK);
     }
     @RequestMapping(value = "/personen", method = RequestMethod.GET)
     public ResponseEntity<List<Person>> findAllPerson(){
-        List<Person> result= personService.findAll();
+        List<Person> result= personService.findAll();;
         return new ResponseEntity<List<Person>>(result, HttpStatus.OK);
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Person> findById(@Validated @PathVariable Long id){
         Person result= personService.findById(id);
         return new ResponseEntity<Person>(result, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/getby/{name}/{email}", method = RequestMethod.GET)
+    public ResponseEntity<List<Person>> getBy(@Validated @PathVariable Optional<String> email, @PathVariable Optional<String> name){
+        List<Person> result= personService.getPersonBy(name,email);
+        return new ResponseEntity<List<Person>>(result, HttpStatus.OK);
     }
 }

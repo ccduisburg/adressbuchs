@@ -4,6 +4,7 @@ import com.example.adressbuchs.entity.Person;
 import com.example.adressbuchs.serviceImpl.Feedback;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PersonService {
    Person save(Person t);
@@ -14,5 +15,6 @@ public interface PersonService {
    List<Person>findByName(String name);
    List<Person> findByVorname(String vorname);
    List<Person>findByEmail(String email);
+   List<Person> getPersonBy(Optional<String> name,  Optional<String> email);
 
 }

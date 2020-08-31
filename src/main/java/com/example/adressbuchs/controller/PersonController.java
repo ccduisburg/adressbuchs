@@ -26,8 +26,8 @@ public class PersonController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<Person> add(@Validated @RequestBody Person person){
-       Feedback result= personService.save(person);
-       return result.equals(Feedback.DONE)?new ResponseEntity<Person>(person,HttpStatus.CREATED):new ResponseEntity<Person>(HttpStatus.INTERNAL_SERVER_ERROR);
+       Person result= personService.save(person);
+       return result!=null?new ResponseEntity<Person>(person,HttpStatus.CREATED):new ResponseEntity<Person>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Person> update(@Validated @RequestBody Person person,@RequestParam Long id){

@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,16 +20,18 @@ public class PersonServiceImpl implements PersonService {
     private PersonRepository personRepository;
 
     @Override
-    public Feedback save(Person person) {
+    public Person save(Person person) {
            Person result =personRepository.save(person);
            LOG.info(Feedback.DONE.toString());
-           return result!=null?Feedback.DONE:Feedback.FEHLER;
+           return result;
     }
 
     @Override
     public Feedback delete(Long id) {
-       Optional<Person> person= Optional.ofNullable(Optional.ofNullable(findById(id)).orElseThrow(NoSuchElementException::new));
-       personRepository.delete(person.get());
+       Person person= findById(id);
+       if(person!=null){
+           personRepository.delete(person);
+       }
         return person!=null?Feedback.DONE:Feedback.FEHLER;
     }
 
@@ -60,7 +61,6 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Person> findAll() {
         List<Person> personen=  personRepository.findAll();
-        //return personen!=null?personen:Collections.EMPTY_LIST;
         return personen;
     }
 
@@ -82,8 +82,4 @@ public class PersonServiceImpl implements PersonService {
         return personen!=null?personen: Collections.EMPTY_LIST;
     }
 
-//    public Person getPersonWithEmail(String email) {
-//        Person  person =personRepository.findByEmail(email);
-//        return person!=null?person:null;
-//    }
 }

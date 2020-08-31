@@ -13,13 +13,11 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -27,7 +25,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 @ExtendWith(MockitoExtension.class)
-//@RunWith(JUnitPlatform.class)
 public class PersonControllerJUnitTest {
 
     @InjectMocks
@@ -36,17 +33,18 @@ public class PersonControllerJUnitTest {
     @Mock
     PersonService personService;
     @Test
-    public void testAddPerson()
-    {
+    public void testAddPerson() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        when(personService.save(any(Person.class))).thenReturn(Feedback.DONE);
+        HttpStatus result = HttpStatus.CREATED;
+        Person person = new Person();
+        when(personService.save(any(Person.class))).thenReturn(person);
 
-        Person person = new Person( "foo", "bar", "blabla@gmail.com");
+        person = new Person("foo", "bar", "blabla@gmail.com");
         ResponseEntity<Person> responseEntity = personController.add(person);
 
-        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(result);
 
     }
     @Test

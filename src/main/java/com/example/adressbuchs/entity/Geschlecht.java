@@ -1,12 +1,10 @@
 package com.example.adressbuchs.entity;
 
 public enum Geschlecht {
-    MÄNNLICH("MÄNNLICH"),
-    WEIBLICH("WEIBLICH"),
-    DIVERS("DIVERS");
+    MÄNNLICH,
+    WEIBLICH,
+    DIVERS,
 
-    Geschlecht(String weiblich) {
-    }
 }
   
  

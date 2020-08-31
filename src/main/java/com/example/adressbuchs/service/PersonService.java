@@ -4,10 +4,9 @@ import com.example.adressbuchs.entity.Person;
 import com.example.adressbuchs.serviceImpl.Feedback;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PersonService {
-   Feedback save(Person t);
+   Person save(Person t);
    Feedback delete(Long id);
    Feedback update(Long id, Person t);
    Person findById(Long id);

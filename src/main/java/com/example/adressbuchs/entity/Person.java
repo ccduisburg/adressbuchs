@@ -17,12 +17,15 @@ public class Person implements Serializable {
     private String titel;
     @Enumerated(EnumType.STRING)
     private Geschlecht geschlecht;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String vorname;
+    @Column(unique = true)
     private String email;
     private String anschrift;
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(nullable = false)
     private Date geburstdatum;
 
     public Person( String vorname, String name, String email) {

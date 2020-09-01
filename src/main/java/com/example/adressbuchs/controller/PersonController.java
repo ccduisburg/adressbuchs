@@ -27,6 +27,9 @@ public class PersonController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<Person> add(@Validated @RequestBody Person person){
+        if(personService.emailCheck(person.getEmail())){
+            throw new IllegalArgumentException("same email was found");
+        }
        Person result= personService.save(person);
        return result!=null?new ResponseEntity<Person>(person,HttpStatus.CREATED):new ResponseEntity<Person>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -65,9 +68,5 @@ public class PersonController {
         Person result= personService.findById(id);
         return new ResponseEntity<Person>(result, HttpStatus.OK);
     }
-    @RequestMapping(value = "/getby/{name}/{email}", method = RequestMethod.GET)
-    public ResponseEntity<List<Person>> getBy(@Validated @PathVariable Optional<String> email, @PathVariable Optional<String> name){
-        List<Person> result= personService.getPersonBy(name,email);
-        return new ResponseEntity<List<Person>>(result, HttpStatus.OK);
-    }
+
 }

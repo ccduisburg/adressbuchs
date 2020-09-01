@@ -81,11 +81,12 @@ public class PersonServiceImpl implements PersonService {
         List<Person> personen =personRepository.findAllByEmailIgnoreCaseContaining(email);
         return personen!=null?personen: Collections.EMPTY_LIST;
     }
+
     @Override
-    public List<Person> getPersonBy(Optional<String> name,Optional<String> email){
-        if(name.isPresent()){return personRepository.findAllByNameIgnoreCaseContaining(name.get());}
-        if(name.isPresent()){return personRepository.findAllByEmailIgnoreCaseContaining(email.get());}
-        return personRepository.findAll();
+    public boolean emailCheck(String email) {
+      Person person=personRepository.findByEmail(email);
+        return person!=null?true:false;
     }
+
 
 }

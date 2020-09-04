@@ -1,7 +1,6 @@
 package com.example.adressbuchs.controller;
 
 import com.example.adressbuchs.entity.Person;
-import com.example.adressbuchs.repo.PersonRepository;
 import com.example.adressbuchs.service.PersonService;
 import com.example.adressbuchs.serviceImpl.Feedback;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+
 
 @EnableAutoConfiguration
 @RestController

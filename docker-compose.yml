@@ -1,40 +1,50 @@
 version: '3'
 
 services:
-  database:
+  my-db:
     image: postgres
-    container_name: database
-    security_opt:
-      - seccomp:unconfined
+    container_name: my-db
+    ports:
+      - 5432:5432
     env_file:
       - database.env
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - POSTGRES_USER= ${POSTGRES_USER}
+      - POSTGRES_PASSWORD= ${POSTGRES_PASSWORD}
+      - POSTGRES_DB= ${POSTGRES_DB}
     volumes:
       - database-data:/var/lib/postgresql/data
+    networks:
+      - backendbackend
 
-
-  adressbuchsbackend:
+  adresbuchbackend:
     build:
       context: .
       dockerfile: Dockerfile
     #    image: adoptopenjdk/openjdk11:alpine-jre
-    container_name: adressbuchsbackend
-    security_opt:
-      - seccomp:unconfined
+    container_name: adresbuchbackend
+    env_file:
+      - database.env
     depends_on:
-      - database
+      - my-db
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:postgresql://my-db:5432/adresbuchdb?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: mysecretpassword
     ports:
       - 8082:8082
     volumes:
       - ./target/adressbuchs-0.0.1-SNAPSHOT.jar adressbuchs.jar
     #    command: ["java", "-jar", "educombackend.jar"]
     networks:
-       - educomNetwork
-    links:
-      - database
+       - backendbackend
+
 
 volumes:
   database-data:
 networks:
-  educomNetwork:
+  backendbackend:
 
 

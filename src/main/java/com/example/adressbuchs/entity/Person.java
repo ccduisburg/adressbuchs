@@ -1,7 +1,6 @@
 package com.example.adressbuchs.entity;
 
 
-import com.sun.istack.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
